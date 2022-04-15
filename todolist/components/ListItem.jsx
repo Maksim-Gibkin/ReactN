@@ -1,24 +1,37 @@
-import React from 'react';
-import {Text, View, FlatList} from "react-native";
+import React, {useEffect} from 'react';
+import {Text, View, FlatList, SafeAreaView, Button} from "react-native";
 
 const ListItem = ({deleteTask, listItems}) => {
-
     return (
-        <View>
+        <SafeAreaView>
             <FlatList data={listItems} renderItem={({item}) => (
-                <View>
+                <View style={{
+                    display: 'flex',
+                    flexDirection:'row',
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                    borderLeftWidth: 3,
+                    borderBottomWidth:1,
+                    borderBottomColor:'#d5ce7d',
+                    borderLeftColor:'rgba(145,141,87,0.3)',
+                    backgroundColor:'rgba(231,182,91,0.13)',
+                    marginBottom:5,
+                }}>
                     <Text style={{
-                        backgroundColor:"rgba(231,91,91,0.13)",
-                        width: 100,
-                        height: 20,
-                        padding: 15,
-                        textAlign: 'center',
+                        width: 200,
+                        height: 30,
+                        padding: 10,
                     }}>
                         {item.task}
                     </Text>
+                    <Button
+                    title="Delete"
+                    onPress={ () => deleteTask(item.id) }
+                    >
+                    </Button>
                 </View>
             )} keyExtractor={listItems.id}/>
-        </View>
+        </SafeAreaView>
     )
 }
 

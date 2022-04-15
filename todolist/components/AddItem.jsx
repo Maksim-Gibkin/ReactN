@@ -1,30 +1,28 @@
-import {Text, View, TextInput, Button} from "react-native";
+import {Text, View, TextInput, Button, SafeAreaView} from "react-native";
 import {useState} from "react";
 
 const AddItem = ({addTask, removeAllTasks}) => {
     const [item, setItem] = useState('')
-    console.log(item, "ITEM")
     return (
-        <View>
-            <Text>Enter task to add</Text>
+        <SafeAreaView >
             <TextInput
-                style ={{
-                borderBottomColor: 'black',
-                    borderWidth: 2,
-                backgroundColor: 'rgba(128,128,64,0.1)',
-                marginTop: 200,
-                    height: 50,
-                    padding: 10,
+                style={{
+                    borderWidth: 1,
+                    backgroundColor: 'rgba(128,128,64,0.1)',
+                    marginTop: 30,
+                    height: 40,
+                    padding: 5,
                 }}
                 onChangeText={(value) => {
                     setItem(value)
                 }}
+                clearButtonMode='while-editing'
             >
             </TextInput>
             <View style={{
                 display:'flex',
                 flexDirection: 'row',
-                marginTop: 10,
+                margin: 5,
             }}>
                 <Button
                     title="Submit"
@@ -39,7 +37,7 @@ const AddItem = ({addTask, removeAllTasks}) => {
                     }}
                 ></Button>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 
