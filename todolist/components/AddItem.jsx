@@ -1,44 +1,53 @@
-import {Text, View, TextInput, Button, SafeAreaView} from "react-native";
+import {Text, View, TextInput, Button, SafeAreaView, StyleSheet} from "react-native";
 import {useState} from "react";
+import ClearBigButton from "./ClearBigButton";
 
 const AddItem = ({addTask, removeAllTasks}) => {
     const [item, setItem] = useState('')
     return (
-        <SafeAreaView >
+        <>
             <TextInput
-                style={{
-                    borderWidth: 1,
-                    backgroundColor: 'rgba(128,128,64,0.1)',
-                    marginTop: 30,
-                    height: 40,
-                    padding: 5,
-                }}
+                style={styles.input}
                 onChangeText={(value) => {
                     setItem(value)
                 }}
                 clearButtonMode='while-editing'
+                value={item}
             >
             </TextInput>
-            <View style={{
-                display:'flex',
-                flexDirection: 'row',
-                margin: 5,
-            }}>
-                <Button
+            <View style={styles.buttonWrap}>
+                <ClearBigButton
                     title="Submit"
                     onPress={() => {
-                        addTask(item)
+                        if(item !== ''){
+                            addTask(item)
+                            setItem('')
+                        }
                     }}
-                ></Button>
-                <Button
+                />
+                <ClearBigButton
                     title="Remove All"
                     onPress={() => {
                         removeAllTasks()
                     }}
-                ></Button>
+                />
             </View>
-        </SafeAreaView>
+        </>
     )
 }
 
+const styles = StyleSheet.create({
+    input: {
+        borderWidth: 1,
+        backgroundColor: 'rgba(128,128,64,0.1)',
+        marginTop: 30,
+        height: 40,
+        width:'75%',
+        padding: 5,
+    },
+    buttonWrap: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    }
+})
 export default AddItem;
