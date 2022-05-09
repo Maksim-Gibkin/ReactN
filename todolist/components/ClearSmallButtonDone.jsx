@@ -1,7 +1,7 @@
 import {Text, TouchableOpacity, StyleSheet} from "react-native";
 
 
-const ClearSmallButton = ({title, onPress}) => {
+const ClearSmallButtonDone = ({title, onPress}) => {
 
     return (
         <TouchableOpacity style={styles.buttonSmall} onPress={onPress}>
@@ -12,10 +12,10 @@ const ClearSmallButton = ({title, onPress}) => {
 
 const styles = StyleSheet.create({
     buttonSmall:{
-        backgroundColor: 'rgba(141,16,0,0.47)',
+        backgroundColor: 'rgba(0,45,141,0.47)',
         width: '10%',
-        padding: 5,
-        marginVertical: 10,
+        padding: 1,
+        marginVertical: 5,
         marginHorizontal: 5,
         borderRadius: 25
     },
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 })
-export default ClearSmallButton;
+export default ClearSmallButtonDone;

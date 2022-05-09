@@ -1,30 +1,39 @@
-import React from 'react';
-import {Text, View, FlatList, SafeAreaView, Button, StyleSheet} from "react-native";
-import ClearSmallButton from "./ClearSmallButton";
+import React, {useState} from 'react';
+import {Text, View, FlatList, SafeAreaView, Button, StyleSheet, Pressable} from "react-native";
+import ClearSmallButtonDel from "./ClearSmallButtonDel";
+import ClearSmallButtonDone from "./ClearSmallButtonDone";
+import {observer} from "mobx-react-lite";
 
-const ListItem = ({deleteTask, listItems, getList, isLoading}) => {
-
-
+const ListItem = observer(({deleteTask, listItems, taskDone})  => {
+    const [press, setPress] =useState(false)
     return (
         <SafeAreaView>
             <FlatList
                 data={listItems}
-                onRefresh = {getList}
-                refreshing={isLoading}
                 renderItem={({item}) => (
-                <View style={styles.listWrap}>
-                    <Text style={styles.listItem}>
-                        {listItems.findIndex((el) => el.id === item.id ? true : null) + 1 + ') '}
-                        {item.task}
-                    </Text>
-                    <ClearSmallButton
-                        title="X"
-                        onPress={() => deleteTask(item.id)} />
-                </View>
-            )} keyExtractor={listItems.id}/>
+                    <View style={styles.listWrap}>
+                        <ClearSmallButtonDone
+                            title="ОК"
+                            onPress={() => taskDone(item.id)}
+                        />
+                        <Pressable
+                        onLongPress={()=>{
+
+                        }}
+                        >
+                            <Text style={[styles.listItem, item.status ? styles.taskStyleDone : null]}>
+                                {item.task}
+                                {item.status ? ' DONE' : null}
+                            </Text>
+                        </Pressable>
+                        <ClearSmallButtonDel
+                            title="X"
+                            onPress={() => deleteTask(item.id)}/>
+                    </View>
+                )} keyExtractor={listItems.id}/>
         </SafeAreaView>
     )
-}
+})
 
 const styles = StyleSheet.create({
     listWrap: {
@@ -38,10 +47,22 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(231,182,91,0.13)',
         marginBottom: 5,
     },
+    listNumber: {
+        fontWeight: '600',
+        fontSize: 18,
+    },
     listItem: {
         width: 200,
         minHeight: 30,
         padding: 10,
+        fontSize: 18
+    },
+    button: {
+        backgroundColor: 'blue'
+    },
+    taskStyleDone: {
+        backgroundColor: 'rgba(111,241,107,0.35)',
+        textDecorationLine: 'line-through'
     }
 })
 

@@ -1,4 +1,4 @@
-import {Text, View, TextInput, Button, SafeAreaView, StyleSheet} from "react-native";
+import { View, TextInput, StyleSheet} from "react-native";
 import {useState} from "react";
 import ClearBigButton from "./ClearBigButton";
 
