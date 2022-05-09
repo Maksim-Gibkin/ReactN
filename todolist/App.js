@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import { AbilityContext } from './Casl/Can'
 import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
 import AddItem from "./components/AddItem";
 import ListItem from "./components/ListItem";
+import casl from "./Casl/ability";
 
 const App = () => {
     const [list, setList] = useState([])
@@ -41,14 +43,17 @@ const App = () => {
         setList(newList)
     }
     return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>Add to task!</Text>
-            <AddItem addTask={addTask} removeAllTasks={removeAllTasks}></AddItem>
-            <View style={styles.list}>
-                <ListItem deleteTask={deleteTask} listItems={list} getList={getTasks} isLoading={isLoading}></ListItem>
-            </View>
-            <StatusBar style="auto"/>
-        </SafeAreaView>
+        <AbilityContext.Provider value={casl}>
+            <SafeAreaView style={styles.container}>
+                <Text style={styles.title}>Add to task!</Text>
+                <AddItem addTask={addTask} removeAllTasks={removeAllTasks}></AddItem>
+                <View style={styles.list}>
+                    <ListItem deleteTask={deleteTask} listItems={list} getList={getTasks} isLoading={isLoading}>
+                    </ListItem>
+                </View>
+                <StatusBar style="auto"/>
+            </SafeAreaView>
+        </AbilityContext.Provider>
     )
 }
 

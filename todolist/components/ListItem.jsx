@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View, FlatList, SafeAreaView, Button, StyleSheet} from "react-native";
 import ClearSmallButton from "./ClearSmallButton";
+import {Can} from "../Casl/Can";
 
 const ListItem = ({deleteTask, listItems, getList, isLoading}) => {
 
@@ -17,9 +18,11 @@ const ListItem = ({deleteTask, listItems, getList, isLoading}) => {
                         {listItems.findIndex((el) => el.id === item.id ? true : null) + 1 + ') '}
                         {item.task}
                     </Text>
+                    <Can I="delete" a="Todo">
                     <ClearSmallButton
                         title="X"
                         onPress={() => deleteTask(item.id)} />
+                    </Can>
                 </View>
             )} keyExtractor={listItems.id}/>
         </SafeAreaView>

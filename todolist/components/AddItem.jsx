@@ -1,11 +1,27 @@
-import {Text, View, TextInput, Button, SafeAreaView, StyleSheet} from "react-native";
-import {useState} from "react";
+import {View, TextInput, StyleSheet, Button} from "react-native";
+import {useContext, useState} from "react";
 import ClearBigButton from "./ClearBigButton";
+import {AbilityContext, Can} from "../Casl/Can";
+import {updateAbilityOff, updateAbilityOn} from "../Casl/ability";
 
 const AddItem = ({addTask, removeAllTasks}) => {
     const [item, setItem] = useState('')
+    const abi = useContext(AbilityContext)
+
     return (
         <>
+            <Button
+                title="caslOFF"
+                onPress={() => {
+                    updateAbilityOff(abi)
+                }}
+            />
+            <Button
+                title="caslOn"
+                onPress={() => {
+                    updateAbilityOn(abi)
+                }}
+            />
             <TextInput
                 style={styles.input}
                 onChangeText={(value) => {
@@ -16,21 +32,25 @@ const AddItem = ({addTask, removeAllTasks}) => {
             >
             </TextInput>
             <View style={styles.buttonWrap}>
-                <ClearBigButton
-                    title="Submit"
-                    onPress={() => {
-                        if(item !== ''){
-                            addTask(item)
-                            setItem('')
-                        }
-                    }}
-                />
-                <ClearBigButton
-                    title="Remove All"
-                    onPress={() => {
-                        removeAllTasks()
-                    }}
-                />
+                <Can I="create" a="Todo">
+                    <ClearBigButton
+                        title="Submit"
+                        onPress={() => {
+                            if (item !== '') {
+                                addTask(item)
+                                setItem('')
+                            }
+                        }}
+                    />
+                </Can>
+                <Can I="delete" a="Todo">
+                    <ClearBigButton
+                        title="Remove All"
+                        onPress={() => {
+                            removeAllTasks()
+                        }}
+                    />
+                </Can>
             </View>
         </>
     )
@@ -42,7 +62,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(128,128,64,0.1)',
         marginTop: 30,
         height: 40,
-        width:'75%',
+        width: '75%',
         padding: 5,
     },
     buttonWrap: {
